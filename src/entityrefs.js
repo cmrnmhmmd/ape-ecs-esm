@@ -124,9 +124,12 @@ function EntityObject(comp, object, field) {
   });
 };
 
+function createEntitySet(component, object = [], field) {
+  return new EntitySet(component, object, field);
+}
 
 export {
-  EntitySet,
+  createEntitySet as EntitySet,
   EntityRef,
   EntityObject
 };
