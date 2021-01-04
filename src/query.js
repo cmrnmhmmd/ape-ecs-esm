@@ -1,5 +1,5 @@
-const Entity = require('./entity');
-const Util = require('./util');
+import { Entity } from './entity.js';
+import * as Util from './util.js';
 
 class Query {
   constructor(world, system, init) {
@@ -350,4 +350,6 @@ class Query {
   }
 }
 
-module.exports = Query;
+export {
+  Query
+};

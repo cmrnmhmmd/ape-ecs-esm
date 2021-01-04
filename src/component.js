@@ -1,5 +1,6 @@
-const Util = require('./util');
-const idGen = new Util.IdGenerator();
+import { IdGenerator } from './util.js';
+
+const idGen = new IdGenerator();
 
 class Component {
   constructor(world) {
@@ -205,4 +206,6 @@ Component.skipSerializeFields = null;
 Component.subbed = false;
 Component.registered = false;
 
-module.exports = Component;
+export {
+  Component
+};

@@ -1,9 +1,14 @@
-const { EntityRef, EntitySet, EntityObject } = require('./entityrefs');
-module.exports = {
-  World: require('./world'),
-  System: require('./system'),
-  Component: require('./component'),
-  Entity: require('./entity'),
+import { World } from './world.js';
+import { System } from './system.js';
+import { Component } from './component.js';
+import { Entity } from './entity.js';
+import { EntityRef, EntitySet, EntityObject } from './entityrefs.js';
+
+export {
+  World,
+  System,
+  Component,
+  Entity,
   EntityRef,
   EntitySet,
   EntityObject
