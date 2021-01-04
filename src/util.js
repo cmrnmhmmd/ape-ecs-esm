@@ -51,7 +51,7 @@ function setUnion() {
   return result;
 }
 
-export {
+module.exports = {
   IdGenerator,
   setIntersection,
   setUnion

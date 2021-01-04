@@ -1,4 +1,4 @@
-import { Query } from './query.js';
+const Query = require('./query');
 
 class System {
   constructor(world, ...initArgs) {
@@ -51,6 +51,4 @@ class System {
   }
 }
 
-export {
-  System
-};
+module.exports = System;

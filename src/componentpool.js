@@ -47,6 +47,4 @@ class ComponentPool {
   }
 }
 
-export {
-  ComponentPool
-};
+module.exports = ComponentPool;
