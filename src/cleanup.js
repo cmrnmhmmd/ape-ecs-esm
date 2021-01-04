@@ -1,4 +1,4 @@
-const System = require('./system');
+import { System } from './system.js';
 
 class CleanupApeDestroySystem extends System {
   init() {
@@ -20,4 +20,6 @@ function setupApeDestroy(world) {
   world.registerSystem('ApeCleanup', CleanupApeDestroySystem);
 }
 
-module.exports = setupApeDestroy;
+export {
+  setupApeDestroy
+};

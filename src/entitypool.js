@@ -1,4 +1,4 @@
-const Entity = require('./entity');
+import { Entity } from './entity.js';
 
 class EntityPool {
   constructor(world, spinup) {
@@ -52,4 +52,6 @@ class EntityPool {
   }
 }
 
-module.exports = EntityPool;
+export {
+  EntityPool
+};

@@ -1,4 +1,4 @@
-# Fork of Ape-ECS with pure ES Modules Syntax
+# Fork of Ape-ECS with ES Module Syntax
 ![Ape-ECS Hero](https://raw.githubusercontent.com/fritzy/ape-ecs/master/imgs/ape_ecs900wbg.png)
 
 [![npm](https://img.shields.io/npm/v/ape-ecs)](https://www.npmjs.com/package/ape-ecs)

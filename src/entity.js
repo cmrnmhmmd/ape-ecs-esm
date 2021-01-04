@@ -1,5 +1,5 @@
-const BaseComponent = require('./component');
-const IdGenerator = require('./util').IdGenerator;
+import { IdGenerator } from './util.js';
+
 const idGen = new IdGenerator();
 
 class Entity {
@@ -204,4 +204,6 @@ class Entity {
   }
 }
 
-module.exports = Entity;
+export {
+  Entity
+}

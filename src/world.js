@@ -2,11 +2,11 @@
  * @module ecs/ECS
  * @type {class}
  */
-const Entity = require('./entity');
-const Query = require('./query');
-const ComponentPool = require('./componentpool');
-const EntityPool = require('./entitypool');
-const setupApeDestroy = require('./cleanup');
+import { Entity } from './entity.js';
+import { Query } from './query.js';
+import { ComponentPool } from './componentpool.js';
+import { EntityPool } from './entitypool.js';
+import { setupApeDestroy } from './cleanup.js';
 
 const componentReserved = new Set([
   'constructor',
@@ -33,7 +33,7 @@ const componentReserved = new Set([
  * Create multiple World instances in order to have multiple collections.
  * @exports World
  */
-module.exports = class World {
+export class World {
   constructor(config) {
     this.config = Object.assign(
       {

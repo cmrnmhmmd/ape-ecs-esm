@@ -1,5 +1,5 @@
 class EntitySet extends Set {
-  constructor(component, object, field) {
+  constructor(component, object = [], field) {
     super();
     this.component = component;
     this.field = field;
@@ -63,69 +63,70 @@ class EntitySet extends Set {
   }
 }
 
-module.exports = {
-  EntityRef(comp, dvalue, field) {
-    dvalue = dvalue || null;
-    if (!comp.hasOwnProperty(field)) {
-      Object.defineProperty(comp, field, {
-        get() {
-          return comp.world.getEntity(comp._meta.values[field]);
-        },
-        set(value) {
-          const old = comp._meta.values[field];
-          value = value && typeof value !== 'string' ? value.id : value;
-          if (old && old !== value) {
-            comp._deleteRef(old, field, undefined);
-          }
-          if (value && value !== old) {
-            comp._addRef(value, field, undefined);
-          }
-          comp._meta.values[field] = value;
-        }
-      });
-    }
-    comp[field] = dvalue;
-    return;
-  },
-
-  EntityObject(comp, object, field) {
-    comp._meta.values[field] = object || {};
-    const values = comp._meta.values[field];
-    const keys = Object.keys(values);
-    for (const key of keys) {
-      if (values[key] && values[key].id) {
-        values[key] = values[key].id;
-      }
-    }
-    return new Proxy(comp._meta.values[field], {
-      get(obj, prop) {
-        return comp.world.getEntity(obj[prop]);
+function EntityRef(comp, dvalue, field) {
+  dvalue = dvalue || null;
+  if (!comp.hasOwnProperty(field)) {
+    Object.defineProperty(comp, field, {
+      get() {
+        return comp.world.getEntity(comp._meta.values[field]);
       },
-      set(obj, prop, value) {
-        const old = obj[prop];
-        if (value && value.id) {
-          value = value.id;
-        }
-        obj[prop] = value;
+      set(value) {
+        const old = comp._meta.values[field];
+        value = value && typeof value !== 'string' ? value.id : value;
         if (old && old !== value) {
-          comp._deleteRef(old, `${field}.${prop}`, '__obj__');
+          comp._deleteRef(old, field, undefined);
         }
         if (value && value !== old) {
-          comp._addRef(value, `${field}.${prop}`, '__obj__');
+          comp._addRef(value, field, undefined);
         }
-        return true;
-      },
-      deleteProperty(obj, prop) {
-        if (!obj.hasOwnProperty(prop)) return false;
-        const old = obj[prop];
-        delete obj[prop];
-        comp._deleteRef(old, `${field}.${prop}`, '__obj__');
-        return true;
+        comp._meta.values[field] = value;
       }
     });
-  },
-
-  EntitySet(component, object = [], field) {
-    return new EntitySet(component, object, field);
   }
+  comp[field] = dvalue;
+  return;
+};
+
+function EntityObject(comp, object, field) {
+  comp._meta.values[field] = object || {};
+  const values = comp._meta.values[field];
+  const keys = Object.keys(values);
+  for (const key of keys) {
+    if (values[key] && values[key].id) {
+      values[key] = values[key].id;
+    }
+  }
+  return new Proxy(comp._meta.values[field], {
+    get(obj, prop) {
+      return comp.world.getEntity(obj[prop]);
+    },
+    set(obj, prop, value) {
+      const old = obj[prop];
+      if (value && value.id) {
+        value = value.id;
+      }
+      obj[prop] = value;
+      if (old && old !== value) {
+        comp._deleteRef(old, `${field}.${prop}`, '__obj__');
+      }
+      if (value && value !== old) {
+        comp._addRef(value, `${field}.${prop}`, '__obj__');
+      }
+      return true;
+    },
+    deleteProperty(obj, prop) {
+      if (!obj.hasOwnProperty(prop)) return false;
+      const old = obj[prop];
+      delete obj[prop];
+      comp._deleteRef(old, `${field}.${prop}`, '__obj__');
+      return true;
+    }
+  });
+};
+
+
+export {
+  EntitySet,
+  EntityRef,
+  EntityObject
 };
